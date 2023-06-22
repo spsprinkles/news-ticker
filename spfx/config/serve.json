@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/spfx-serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://dattaspo.sharepoint.com/sites/demo/newsticker/SitePages/Home.aspx",
+      "customActions": {
+        "bd1a7cb2-b7a9-4f96-8870-a7bfd58ea61f": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    },
+    "newsTicker": {
+      "pageUrl": "https://dattaspo.sharepoint.com/sites/demo/newsticker/SitePages/Home.aspx",
+      "customActions": {
+        "bd1a7cb2-b7a9-4f96-8870-a7bfd58ea61f": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    }
+  }
+}
