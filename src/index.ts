@@ -1,5 +1,6 @@
-import { ContextInfo } from "gd-sprest-bs";
-import { InstallationRequired } from "dattatable";
+import { InstallationRequired, LoadingDialog } from "dattatable";
+import { Components, ContextInfo } from "gd-sprest-bs";
+import { infoSquare } from "gd-sprest-bs/build/icons/svgs/infoSquare";
 import { Banner } from "./banner";
 import { Configuration } from "./cfg";
 import { DataSource } from "./ds";
@@ -54,13 +55,38 @@ const GlobalVariable = {
                 InstallationRequired.requiresInstall({ cfg: Configuration }).then(installFl => {
                     // See if an install is required
                     if (installFl) {
-                        // Show the dialog
-                        InstallationRequired.showDialog({
-                            onCompleted: () => {
-                                // Render the app
-                                GlobalVariable.render(props);
+                        // Render a button to Edit Icon Links
+                        let btn = Components.Button({
+                            el: props.el,
+                            className: "ms-1 my-1",
+                            iconClassName: "btn-img",
+                            iconSize: 22,
+                            iconType: infoSquare,
+                            isSmall: true,
+                            text: "Create News List",
+                            type: Components.ButtonTypes.OutlinePrimary,
+                            onClick: () => {
+                                // Display a loading dialog
+                                LoadingDialog.setHeader("Creating News List");
+                                LoadingDialog.setBody("This will close after the list is created...");
+                                LoadingDialog.show();
+
+                                // Create the list
+                                Configuration.install().then(() => {
+                                    // Hide the dialog
+                                    LoadingDialog.hide();
+
+                                    // Render the app
+                                    GlobalVariable.render(props);
+                                }, () => {
+                                    // Log
+                                    console.error("[" + Strings.ProjectName + "] Error initializing the solution.");
+                                });
                             }
                         });
+
+                        // Update the style
+                        btn.el.classList.remove("btn-icon");
                     } else {
                         // Log
                         console.error("[" + Strings.ProjectName + "] Error initializing the solution.");
