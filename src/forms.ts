@@ -31,7 +31,7 @@ export class Forms {
         DataSource.List.newForm({
             onSetHeader: (el) => {
                 let h5 = el.querySelector("h5") as HTMLElement;
-                if (h5) { h5.innerText = "New Icon Link"; }
+                if (h5) { h5.innerText = "New Article"; }
             },
             onUpdate: (item: IListItem) => {
                 // Refresh the data
