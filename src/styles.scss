@@ -1,7 +1,7 @@
 /** Variables */
 :root {
-    --nt-background-color: #eee;
-    --nt-delay: -400%;
+    --news-background-color: #eee;
+    --news-delay: -400%;
 }
 
 
@@ -18,7 +18,7 @@
 /** News Ticker Element */
 #news-ticker {
     overflow: hidden; /** Hides the scroll bar */
-    background-color: var(--nt-background-color); /* Background color */
+    background-color: var(--news-background-color); /* Background color */
 
     /** News Items */
     .news-items {
@@ -30,6 +30,7 @@
             box-sizing: border-box;
             padding: 10px;
             text-align: center;
+            width: 100%;
         }
     }
 }
@@ -37,7 +38,7 @@
 /** Animation */
 @keyframes tickerh {
     0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(var(--nt-delay), 0, 0); }
+    100% { transform: translate3d(var(--news-delay), 0, 0); }
 }
 #news-ticker {
     .news-items {

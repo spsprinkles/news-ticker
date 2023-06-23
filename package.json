@@ -8,7 +8,7 @@
     "build": "webpack --mode development",
     "clean": "node ./clean.js",
     "prod": "webpack --mode production",
-    "serve": "npm run build && cd spfx && gulp serve --nobrowser",
+    "serve": "npm run build && cd spfx && gulp serve",
     "spfx": "cd spfx && npm run package"
   },
   "repository": {

@@ -132,6 +132,6 @@ export class Banner {
 
         // Set the CSS properties to the theme colors
         let root = document.querySelector(':root') as HTMLElement;
-        root.style.setProperty("--nt-delay", `-${DataSource.ListItems.length * 100}%`);
+        root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 100}%`);
     }
 }
