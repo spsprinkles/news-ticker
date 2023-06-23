@@ -85,6 +85,7 @@ module.exports = {
         //                    or else return the object to a caller (who assumes this responsibility).  Unterminated
         //                    promise chains are a serious issue.  Besides causing errors to be silently ignored,
         //                    they can also cause a NodeJS process to terminate unexpectedly.
+        '@typescript-eslint/no-empty-function': 0,
         '@typescript-eslint/no-extra-semi': 0,
         '@typescript-eslint/no-floating-promises': 2,
         // RATIONALE:         Catches a common coding mistake.
