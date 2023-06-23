@@ -1,8 +1,8 @@
 import { InstallationRequired, LoadingDialog } from "dattatable";
 import { Components, ContextInfo } from "gd-sprest-bs";
-import { infoSquare } from "gd-sprest-bs/build/icons/svgs/infoSquare";
 import { Banner } from "./banner";
 import { Configuration } from "./cfg";
+import * as Common from "./common";
 import { DataSource } from "./ds";
 import Strings, { setContext } from "./strings";
 
@@ -62,7 +62,7 @@ const GlobalVariable = {
                             className: "ms-1 my-1",
                             iconClassName: "btn-img",
                             iconSize: 22,
-                            iconType: infoSquare,
+                            iconType: Common.getAppIcon,
                             isSmall: true,
                             text: "Create News List",
                             type: Components.ButtonTypes.OutlinePrimary,

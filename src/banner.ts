@@ -1,5 +1,5 @@
 import { Components, ContextInfo, Helper } from "gd-sprest-bs";
-import { infoSquare } from "gd-sprest-bs/build/icons/svgs/infoSquare";
+import * as Common from "./common";
 import { Datatable } from "./datatable";
 import { DataSource } from "./ds";
 import { Security } from "./security";
@@ -62,7 +62,7 @@ export class Banner {
             className: "ms-1 my-1",
             iconClassName: "btn-img",
             iconSize: 22,
-            iconType: infoSquare,
+            iconType: Common.getAppIcon,
             isSmall: true,
             text: "Edit News",
             type: Components.ButtonTypes.OutlinePrimary,
@@ -88,7 +88,7 @@ export class Banner {
             className: "ms-1 my-1 news-item",
             iconClassName: "btn-img",
             iconSize: 22,
-            iconType: infoSquare,
+            iconType: Common.getAppIcon,
             isSmall: true,
             text: "Add News",
             type: Components.ButtonTypes.OutlinePrimary,

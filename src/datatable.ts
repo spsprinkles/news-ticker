@@ -1,9 +1,9 @@
 import { Dashboard, Modal } from "dattatable";
 import { Components } from "gd-sprest-bs";
-import { infoSquare } from "gd-sprest-bs/build/icons/svgs/infoSquare";
 import { pencilSquare } from "gd-sprest-bs/build/icons/svgs/pencilSquare";
 import { plusSquare } from "gd-sprest-bs/build/icons/svgs/plusSquare";
 import * as jQuery from "jquery";
+import * as Common from "./common";
 import { DataSource, IListItem } from "./ds";
 import { Forms } from "./forms";
 import Strings from "./strings";
@@ -59,7 +59,7 @@ export class Datatable {
                     // Set the brand
                     let brand = document.createElement("div");
                     brand.className = "align-items-center d-flex";
-                    brand.appendChild(infoSquare());
+                    brand.appendChild(Common.getAppIcon(32, 32));
                     brand.append(Strings.ProjectName);
                     brand.querySelector("svg").classList.add("me-75");
                     props.brand = brand;
