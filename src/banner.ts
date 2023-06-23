@@ -1,4 +1,4 @@
-import { Components, Helper, SPTypes } from "gd-sprest-bs";
+import { Components, ContextInfo, Helper } from "gd-sprest-bs";
 import { infoSquare } from "gd-sprest-bs/build/icons/svgs/infoSquare";
 import { Datatable } from "./datatable";
 import { DataSource } from "./ds";
@@ -129,9 +129,13 @@ export class Banner {
     // Updates the styling, based on the theme
     updateTheme(themeInfo?: any) {
         // Get the theme colors
+        let neutralDark = (themeInfo || ContextInfo.theme).neutralDark || DataSource.getThemeColor("StrongBodyText");
+        let neutralLight = (themeInfo || ContextInfo.theme).neutralLight || DataSource.getThemeColor("DisabledLines");
 
         // Set the CSS properties to the theme colors
         let root = document.querySelector(':root') as HTMLElement;
         root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 100}%`);
+        root.style.setProperty('--sp-neutral-dark', neutralDark);
+        root.style.setProperty('--sp-neutral-light', neutralLight);
     }
 }

@@ -18,6 +18,7 @@ export interface IAppProps {
 
 // Create the global variable for this solution
 const GlobalVariable = {
+    App: null,
     Configuration,
     render: (props: IAppProps) => {
         // See if the page context exists
@@ -46,7 +47,7 @@ const GlobalVariable = {
             // Success
             () => {
                 // Create the application
-                new Banner(props.el);
+                GlobalVariable.App = new Banner(props.el);
             },
 
             // Error
@@ -94,7 +95,10 @@ const GlobalVariable = {
                 });
             }
         );
-    }
+    },
+    updateTheme: (themeInfo) => {
+        GlobalVariable.App ? GlobalVariable.App.updateTheme(themeInfo) : null;
+    },
 };
 
 // Make is available in the DOM

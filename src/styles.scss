@@ -1,6 +1,7 @@
 /** Variables */
 :root {
-    --news-background-color: #eee;
+    --sp-neutral-dark: #201f1e;
+    --sp-neutral-light: #edebe9;
     --news-delay: -400%;
 }
 
@@ -17,8 +18,9 @@
 
 /** News Ticker Element */
 #news-ticker {
+    background-color: var(--sp-neutral-light); /** Background color */
+    color: var(--sp-neutral-dark); /** Text Color */
     overflow: hidden; /** Hides the scroll bar */
-    background-color: var(--news-background-color); /* Background color */
 
     /** News Items */
     .news-items {
@@ -26,8 +28,8 @@
 
         /** News Ticker Item */
         .news-item {
-            flex-shrink: 0;
             box-sizing: border-box;
+            flex-shrink: 0;
             padding: 10px;
             text-align: center;
             width: 100%;

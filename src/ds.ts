@@ -1,5 +1,5 @@
 import { List } from "dattatable";
-import { Types } from "gd-sprest-bs";
+import { ContextInfo, Helper, Types } from "gd-sprest-bs";
 import { Security } from "./security";
 import Strings from "./strings";
 
@@ -28,7 +28,8 @@ export class DataSource {
         // Return a promise
         return Promise.all([
             this.initList(viewName),
-            Security.init()
+            Security.init(),
+            this.initTheme()
         ]);
     }
 
@@ -52,6 +53,28 @@ export class DataSource {
         return new Promise((resolve, reject) => {
             // Refresh the data
             DataSource.List.refresh().then(resolve, reject);
+        });
+    }
+
+    // Theme Information
+    private static _themeInfo: { [name: string]: string };
+    static getThemeColor(name: string) { return ContextInfo.theme.accent ? ContextInfo.theme[name] : this._themeInfo[name]; }
+
+    // Intializes the theme information
+    private static initTheme(): PromiseLike<void> {
+        // Clear the theme
+        this._themeInfo = {};
+
+        // Return a promise
+        return new Promise((resolve) => {
+            // Load the modern/classic theme information
+            Helper.getCurrentTheme().then(themeInfo => {
+                // Set the theme info
+                this._themeInfo = themeInfo;
+
+                // Resolve the request
+                resolve();
+            }, resolve);
         });
     }
 }

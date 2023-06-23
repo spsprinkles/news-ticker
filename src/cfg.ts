@@ -36,7 +36,7 @@ export const Configuration = Helper.SPConfig({
                 },
                 {
                     ViewName: "Active Items",
-                    ViewQuery: '<Where><Geq><FieldRef Name="ExpirationDate" /><Value>[Today]</Value></Geq></Where>',
+                    ViewQuery: '<Where><Geq><FieldRef Name="ExpirationDate" /><Value Type="DateTime"><Today /></Value></Geq></Where>',
                     ViewFields: [
                         "LinkTitle", "Content", "ExpirationDate"
                     ]

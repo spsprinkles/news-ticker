@@ -1,7 +1,8 @@
 import { Environment, Log } from '@microsoft/sp-core-library';
 import {
-  ApplicationCustomizerContext, BaseApplicationCustomizer, PlaceholderContent, PlaceholderName
+  ApplicationCustomizerContext, BaseApplicationCustomizer, PlaceholderContent, PlaceholderName,
 } from '@microsoft/sp-application-base';
+import { IReadonlyTheme, ISemanticColors } from '@microsoft/sp-component-base';
 
 //import * as strings from 'NewsTickerApplicationCustomizerStrings';
 
@@ -17,6 +18,7 @@ declare const NewsTicker: {
     listName?: string;
     viewName?: string;
   }) => void;
+  updateTheme: (currentTheme: Partial<ISemanticColors>) => void;
 };
 
 /**
@@ -63,5 +65,14 @@ export default class NewsTickerApplicationCustomizer
     }
 
     return Promise.resolve();
+  }
+
+  protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
+    if (!currentTheme) {
+      return;
+    }
+
+    // Update the theme
+    NewsTicker.updateTheme(currentTheme.semanticColors);
   }
 }
