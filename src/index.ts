@@ -28,15 +28,6 @@ const GlobalVariable = {
 
             // Update the configuration
             Configuration.setWebUrl(ContextInfo.webServerRelativeUrl);
-
-            /*
-            // See if the list name is set
-            if (props.listName) {
-                // Update the configuration
-                Strings.Lists.News = props.listName;
-                Configuration._configuration.ListCfg[0].ListInformation.Title = props.listName;
-            }
-            */
         }
 
         // Clear the element
