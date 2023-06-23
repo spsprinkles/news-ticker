@@ -44,6 +44,7 @@ export default class NewsTickerApplicationCustomizer
       // Create the banner
       this._banner = this.context.placeholderProvider.tryCreateContent(PlaceholderName.Top);
       this._banner.domElement.id = "news-ticker";
+      this._banner.domElement.classList.add("bs");
 
       // Log
       Log.info(LOG_SOURCE, `Creating the banner`);
