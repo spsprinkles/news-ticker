@@ -1,6 +1,6 @@
 {
   "name": "news-ticker",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Displays news items in the header of a modern page.",
   "main": "src/index.ts",
   "scripts": {
