@@ -15,8 +15,6 @@ declare const NewsTicker: {
     el: HTMLElement;
     context?: ApplicationCustomizerContext;
     envType?: number;
-    listName?: string;
-    viewName?: string;
   }) => void;
   updateTheme: (currentTheme: Partial<ISemanticColors>) => void;
 };
