@@ -26,10 +26,7 @@ declare const NewsTicker: {
  * it will be deserialized into the BaseExtension.properties object.
  * You can define an interface to describe it.
  */
-export interface INewsTickerApplicationCustomizerProperties {
-  // This is an example; replace with your own property
-  testMessage: string;
-}
+export interface INewsTickerApplicationCustomizerProperties { }
 
 /** A Custom Action which can be run during execution of a Client Side Application */
 export default class NewsTickerApplicationCustomizer
