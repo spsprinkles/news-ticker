@@ -33,14 +33,10 @@ export default class NewsTickerApplicationCustomizer
   extends BaseApplicationCustomizer<INewsTickerApplicationCustomizerProperties> {
 
   private _banner: PlaceholderContent = null;
-  private _pushState: any = null;
 
   public onInit(): Promise<void> {
     // Log
     Log.info(LOG_SOURCE, `Initializing the News Ticker`);
-
-    // Bind to the browser history
-    this.bindHistory();
 
     // Render the banner
     this.render();
@@ -55,40 +51,6 @@ export default class NewsTickerApplicationCustomizer
 
     // Update the theme
     NewsTicker.updateTheme(currentTheme.semanticColors);
-  }
-
-  // Handles the page change events
-  private bindHistory(): void {
-    // Ensure the push state doesn't exist
-    if (this._pushState) { return; }
-
-    // Save a reference to the original push state
-    const origPushState = history.pushState;
-
-    // Create the push state
-    this._pushState = () => {
-      return (data: any, title: string, url?: string) => {
-        let isEdit = false;
-
-        // Ensure the url exists
-        const value = url ? url.toLowerCase() : "";
-
-        // See if we are in edit mode
-        if (value.indexOf("mode=edit")) {
-          // Set the flag
-          isEdit = true;
-        }
-
-        // Update the banner
-        NewsTicker.updateBanner(isEdit);
-
-        // Call the original function
-        return origPushState.apply(this, [data, title, url]);
-      }
-    }
-
-    // Set the push state
-    history.pushState = this._pushState();
   }
 
   // Renders the banner
