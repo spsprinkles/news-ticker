@@ -14,6 +14,7 @@ export interface IAppProps {
     el: HTMLElement;
     context?;
     envType?: number;
+    isEdit?: boolean;
 }
 
 // Create the global variable for this solution
@@ -38,7 +39,7 @@ const GlobalVariable = {
             // Success
             () => {
                 // Create the application
-                GlobalVariable.App = new Banner(props.el);
+                GlobalVariable.App = new Banner(props.el, props.isEdit);
             },
 
             // Error
@@ -86,6 +87,10 @@ const GlobalVariable = {
                 });
             }
         );
+    },
+    updateBanner: (isEdit: boolean) => {
+        // Update the banner
+        GlobalVariable.App ? GlobalVariable.App.update(isEdit) : null;
     },
     updateTheme: (themeInfo) => {
         GlobalVariable.App ? GlobalVariable.App.updateTheme(themeInfo) : null;

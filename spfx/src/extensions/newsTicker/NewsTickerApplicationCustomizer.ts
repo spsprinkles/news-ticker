@@ -15,7 +15,9 @@ declare const NewsTicker: {
     el: HTMLElement;
     context?: ApplicationCustomizerContext;
     envType?: number;
+    isEdit?: boolean;
   }) => void;
+  updateBanner: (isEdit: boolean) => void;
   updateTheme: (currentTheme: Partial<ISemanticColors>) => void;
 };
 
@@ -31,34 +33,17 @@ export default class NewsTickerApplicationCustomizer
   extends BaseApplicationCustomizer<INewsTickerApplicationCustomizerProperties> {
 
   private _banner: PlaceholderContent = null;
+  private _pushState: any = null;
 
   public onInit(): Promise<void> {
     // Log
     Log.info(LOG_SOURCE, `Initializing the News Ticker`);
 
-    // See if the banner has been created
-    if (this._banner === null) {
-      // Log
-      Log.info(LOG_SOURCE, `Creating the top placeholder`);
+    // Bind to the browser history
+    this.bindHistory();
 
-      // Create the banner
-      this._banner = this.context.placeholderProvider.tryCreateContent(PlaceholderName.Top);
-      this._banner.domElement.id = "news-ticker";
-      this._banner.domElement.classList.add("bs");
-
-      // Log
-      Log.info(LOG_SOURCE, `Creating the banner`);
-
-      // Render the banner
-      NewsTicker.render({
-        el: this._banner.domElement,
-        context: this.context,
-        envType: Environment.type
-      });
-    } else {
-      // Log
-      Log.info(LOG_SOURCE, `Banner already rendered`);
-    }
+    // Render the banner
+    this.render();
 
     return Promise.resolve();
   }
@@ -70,5 +55,70 @@ export default class NewsTickerApplicationCustomizer
 
     // Update the theme
     NewsTicker.updateTheme(currentTheme.semanticColors);
+  }
+
+  // Handles the page change events
+  private bindHistory(): void {
+    // Ensure the push state doesn't exist
+    if (this._pushState) { return; }
+
+    // Save a reference to the original push state
+    const origPushState = history.pushState;
+
+    // Create the push state
+    this._pushState = () => {
+      return (data: any, title: string, url?: string) => {
+        let isEdit = false;
+
+        // Ensure the url exists
+        const value = url ? url.toLowerCase() : "";
+
+        // See if we are in edit mode
+        if (value.indexOf("mode=edit")) {
+          // Set the flag
+          isEdit = true;
+        }
+
+        // Update the banner
+        NewsTicker.updateBanner(isEdit);
+
+        // Call the original function
+        return origPushState.apply(this, [data, title, url]);
+      }
+    }
+
+    // Set the push state
+    history.pushState = this._pushState();
+  }
+
+  // Renders the banner
+  private render(): void {
+    // See if the banner has been created
+    if (this._banner === null) {
+      // Log
+      Log.info(LOG_SOURCE, `Creating the top placeholder`);
+
+      // Create the banner
+      this._banner = this.context.placeholderProvider.tryCreateContent(PlaceholderName.Top);
+      this._banner.domElement.id = "news-ticker";
+      this._banner.domElement.classList.add("bs");
+    } else {
+      // Log
+      Log.info(LOG_SOURCE, `Placeholder already created`);
+    }
+
+    // Log
+    Log.info(LOG_SOURCE, `Creating the banner`);
+
+    // See if we are in edit mode
+    const isEdit = window.location.href.toLowerCase().indexOf("mode=edit") > 0;
+
+    // Render the banner
+    NewsTicker.render({
+      el: this._banner.domElement,
+      context: this.context,
+      envType: Environment.type,
+      isEdit
+    });
   }
 }

@@ -11,11 +11,13 @@ import Strings from './strings';
 export class Banner {
     private _dt: Datatable = null;
     private _el: HTMLElement = null;
+    private _isEdit: boolean = false;
 
     // Constructor
-    constructor(el: HTMLElement) {
+    constructor(el: HTMLElement, isEdit: boolean) {
         // Save the properties
         this._el = el;
+        this._isEdit = isEdit;
 
         // Render the banner
         this.render();
@@ -34,7 +36,7 @@ export class Banner {
 
         // See if we are editing the page & in classic mode
         let isEditMode = Strings.IsClassic && Helper.WebPart.isEditMode();
-        if (isEditMode) {
+        if (isEditMode || this._isEdit) {
             // Render the edit button
             this.renderEdit();
         }
@@ -48,7 +50,7 @@ export class Banner {
             this.updateTheme();
         }
         // Ensure we aren't in edit mode and this is an owner/admin
-        else if (!isEditMode && (Security.IsAdmin || Security.IsOwner)) {
+        else if (!(isEditMode || this._isEdit) && (Security.IsAdmin || Security.IsOwner)) {
             // Render the edit button
             this.renderEmptyBanner();
         }
@@ -124,6 +126,18 @@ export class Banner {
     showDatatable() {
         // Show the datatable
         this._dt.show();
+    }
+
+    // Updates the banner
+    update(isEdit: boolean) {
+        // Set the flag
+        this._isEdit = isEdit;
+
+        // Clear the element
+        while (this._el.firstChild) { this._el.removeChild(this._el.firstChild); }
+
+        // Render the app
+        this.render();
     }
 
     // Updates the styling, based on the theme
