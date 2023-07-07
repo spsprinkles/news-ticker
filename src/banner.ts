@@ -148,7 +148,7 @@ export class Banner {
 
         // Set the CSS properties to the theme colors
         let root = document.querySelector(':root') as HTMLElement;
-        root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 100}%`);
+        root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 10}%`);
         root.style.setProperty('--sp-neutral-dark', neutralDark);
         root.style.setProperty('--sp-neutral-light', neutralLight);
     }
