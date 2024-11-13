@@ -2,14 +2,14 @@ import { Environment, Log } from '@microsoft/sp-core-library';
 import {
   ApplicationCustomizerContext, BaseApplicationCustomizer, PlaceholderContent, PlaceholderName,
 } from '@microsoft/sp-application-base';
-import { IReadonlyTheme, ISemanticColors } from '@microsoft/sp-component-base';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 //import * as strings from 'NewsTickerApplicationCustomizerStrings';
 
 const LOG_SOURCE: string = 'NewsTickerApplicationCustomizer';
 
 // Reference the solution
-import "../../../../dist/news-ticker.js";
+import "main-lib";
 declare const NewsTicker: {
   render: (props: {
     el: HTMLElement;
@@ -18,7 +18,7 @@ declare const NewsTicker: {
     isEdit?: boolean;
   }) => void;
   updateBanner: (isEdit: boolean) => void;
-  updateTheme: (currentTheme: Partial<ISemanticColors>) => void;
+  updateTheme: (currentTheme: IReadonlyTheme) => void;
 };
 
 /**
@@ -50,7 +50,7 @@ export default class NewsTickerApplicationCustomizer
     }
 
     // Update the theme
-    NewsTicker.updateTheme(currentTheme.semanticColors);
+    NewsTicker.updateTheme(currentTheme);
   }
 
   // Renders the banner

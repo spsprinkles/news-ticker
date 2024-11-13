@@ -2,12 +2,12 @@
   "@microsoft/generator-sharepoint": {
     "plusBeta": false,
     "isCreatingSolution": true,
-    "nodeVersion": "14.21.2",
+    "nodeVersion": "18.19.0",
     "sdksVersions": {
       "@microsoft/microsoft-graph-client": "3.0.2",
-      "@microsoft/teams-js": "2.4.1"
+      "@microsoft/teams-js": "2.12.0"
     },
-    "version": "1.16.1",
+    "version": "1.18.2",
     "libraryName": "news-ticker",
     "libraryId": "63550288-8e51-4d9f-83ff-d925091fa88a",
     "environment": "spo",

@@ -1,5 +1,5 @@
 import { InstallationRequired, LoadingDialog } from "dattatable";
-import { Components, ContextInfo } from "gd-sprest-bs";
+import { Components, ContextInfo, ThemeManager } from "gd-sprest-bs";
 import { Banner } from "./banner";
 import { Configuration } from "./cfg";
 import * as Common from "./common";
@@ -35,7 +35,10 @@ const GlobalVariable = {
         while (props.el.firstChild) { props.el.removeChild(props.el.firstChild); }
 
         // Initialize the application
-        DataSource.init().then(
+        Promise.all([
+            DataSource.init(),
+            ThemeManager.load(true)
+        ]).then(
             // Success
             () => {
                 // Create the application
@@ -93,7 +96,7 @@ const GlobalVariable = {
         GlobalVariable.App ? GlobalVariable.App.update(isEdit) : null;
     },
     updateTheme: (themeInfo) => {
-        GlobalVariable.App ? GlobalVariable.App.updateTheme(themeInfo) : null;
+        ThemeManager.update(themeInfo);
     },
 };
 

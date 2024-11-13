@@ -3,7 +3,7 @@
   "solution": {
     "name": "spfx-news-ticker",
     "id": "63550288-8e51-4d9f-83ff-d925091fa88a",
-    "version": "0.0.0.2",
+    "version": "0.0.3.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": false,
     "isDomainIsolated": false,

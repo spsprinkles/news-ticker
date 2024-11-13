@@ -11,7 +11,12 @@
       ]
     }
   },
-  "externals": {},
+  "externals": {
+    "main-lib": {
+      "globalName": "main-lib",
+      "path": "../dist/news-ticker.js"
+    }
+  },
   "localizedResources": {
     "NewsTickerApplicationCustomizerStrings": "lib/extensions/newsTicker/loc/{locale}.js"
   }
