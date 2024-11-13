@@ -2,7 +2,6 @@ import { Dashboard, Modal } from "dattatable";
 import { Components } from "gd-sprest-bs";
 import { pencilSquare } from "gd-sprest-bs/build/icons/svgs/pencilSquare";
 import { plusSquare } from "gd-sprest-bs/build/icons/svgs/plusSquare";
-import * as jQuery from "jquery";
 import * as Common from "./common";
 import { DataSource, IListItem } from "./ds";
 import { Forms } from "./forms";
@@ -127,34 +126,18 @@ export class Datatable {
             },
             table: {
                 rows: DataSource.ListItems,
-                dtProps: {
-                    dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-                    columnDefs: [
+                onRendering: dtProps => {
+                    // Set the column defs
+                    dtProps.columnDefs = [
                         {
                             "targets": [0, 3],
                             "orderable": false,
                             "searchable": false
                         }
-                    ],
-                    createdRow: function (row, data, index) {
-                        jQuery('td', row).addClass('align-middle');
-                    },
-                    drawCallback: function (settings) {
-                        let api = new jQuery.fn.dataTable.Api(settings) as any;
-                        let div = api.table().container() as HTMLDivElement;
-                        let table = api.table().node() as HTMLTableElement;
-                        div.querySelector(".dataTables_info").classList.add("text-center");
-                        div.querySelector(".dataTables_length").classList.add("pt-2");
-                        div.querySelector(".dataTables_paginate").classList.add("pt-03");
-                        table.classList.remove("no-footer");
-                        table.classList.add("tbl-footer");
-                        table.classList.add("table-striped");
-                    },
-                    headerCallback: function (thead, data, start, end, display) {
-                        jQuery('th', thead).addClass('align-middle');
-                    },
-                    // Order by the 1st column by default; ascending
-                    order: [[1, "asc"]]
+                    ];
+
+                    // Set the order
+                    dtProps.order = [[1, "asc"]];
                 },
                 columns: [
                     {

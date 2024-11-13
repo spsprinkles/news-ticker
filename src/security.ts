@@ -1,9 +1,13 @@
-import { Types, Web } from "gd-sprest-bs";
+import { ListSecurity, ListSecurityDefaultGroups } from "dattatable";
+import { ContextInfo, SPTypes, Types } from "gd-sprest-bs";
+import Strings from "./strings";
 
 /**
  * Security
  */
 export class Security {
+    private static _listSecurity: ListSecurity = null;
+
     // Current User
     private static _currentUser: Types.SP.User = null;
     static get CurrentUser(): Types.SP.User { return this._currentUser; }
@@ -20,35 +24,33 @@ export class Security {
     static init(): PromiseLike<void> {
         // Return a promise
         return new Promise(resolve => {
-            // Get the current user
-            Web().CurrentUser().execute(user => {
-                // Set the flag
-                this._currentUser = user;
-                this._isAdmin = user.IsSiteAdmin;
+            // Create the list security
+            this._listSecurity = new ListSecurity({
+                listItems: [
+                    {
+                        listName: Strings.Lists.News,
+                        groupName: ListSecurityDefaultGroups.Owners,
+                        permission: SPTypes.RoleType.Administrator
+                    },
+                    {
+                        listName: Strings.Lists.News,
+                        groupName: ListSecurityDefaultGroups.Members,
+                        permission: SPTypes.RoleType.Contributor
+                    },
+                    {
+                        listName: Strings.Lists.News,
+                        groupName: ListSecurityDefaultGroups.Visitors,
+                        permission: SPTypes.RoleType.Reader
+                    }
+                ],
+                onGroupsLoaded: () => {
+                    // Set the flags
+                    this._isAdmin = this._listSecurity.CurrentUser.IsSiteAdmin;
+                    this._isOwner = this._listSecurity.isInGroup(ContextInfo.userId, ListSecurityDefaultGroups.Owners);
 
-                // See if this is not the admin
-                if (!this._isAdmin) {
-                    // Get the current user
-                    Web().AssociatedOwnerGroup().Users().execute(users => {
-                        // Parse the users
-                        for (let i = 0; i < users.results.length; i++) {
-                            // See if this is the current user
-                            if (users.results[i].Id == this._currentUser.Id) {
-                                // Set the flag and break from the loop
-                                this._isOwner = true;
-                            }
-                        }
-
-                        // Resolve the request
-                        resolve();
-                    });
-                } else {
                     // Resolve the request
                     resolve();
                 }
-            }, () => {
-                // Resolve the request
-                resolve();
             });
         });
     }
