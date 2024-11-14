@@ -45,9 +45,6 @@ export class Banner {
         if (DataSource.ListItems.length > 0) {
             // Render the dashboard
             this.renderNews();
-
-            // Update the theme
-            this.updateTheme();
         }
         // Ensure we aren't in edit mode and this is an owner/admin
         else if (!(isEditMode || this._isEdit) && (Security.IsAdmin || Security.IsOwner)) {
@@ -120,6 +117,10 @@ export class Banner {
             elItem.innerHTML = `<b>${item.Title}</b> ${item.Content}`;
             elTicker.appendChild(elItem);
         }
+
+        // Set the news delay variable
+        let root = document.querySelector(':root') as HTMLElement;
+        root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 100}%`);
     }
 
     // Shows the datatable
@@ -138,18 +139,5 @@ export class Banner {
 
         // Render the app
         this.render();
-    }
-
-    // Updates the styling, based on the theme
-    updateTheme(themeInfo?: any) {
-        // Get the theme colors
-        let neutralDark = (themeInfo || ContextInfo.theme).neutralDark || DataSource.getThemeColor("StrongBodyText");
-        let neutralLight = (themeInfo || ContextInfo.theme).neutralLight || DataSource.getThemeColor("DisabledLines");
-
-        // Set the CSS properties to the theme colors
-        let root = document.querySelector(':root') as HTMLElement;
-        root.style.setProperty("--news-delay", `-${DataSource.ListItems.length * 10}%`);
-        root.style.setProperty('--sp-neutral-dark', neutralDark);
-        root.style.setProperty('--sp-neutral-light', neutralLight);
     }
 }

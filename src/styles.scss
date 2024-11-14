@@ -2,7 +2,8 @@
 :root {
     --sp-neutral-dark: #201f1e;
     --sp-neutral-light: #edebe9;
-    --news-delay: -10%;
+    --news-delay: -100%;
+    --news-speed: 30s;
 }
 
 .app-brand {
@@ -47,7 +48,7 @@
 }
 #news-ticker {
     .news-items {
-        animation: tickerh linear 15s infinite;
+        animation: tickerh linear var(--news-speed) infinite;
     }
     .news-items:hover {
         animation-play-state: paused;
